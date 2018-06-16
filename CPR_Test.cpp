@@ -1,11 +1,12 @@
 #include "CPR_Framework.h"
 #include "Map.h"
+#include "Camera.h"
 
-Mesh*	g_mesh = 0;
-float	g_angle = 0.0f;
+//Mesh* g_mesh = 0;
+//float g_angle = 0.0f;
 
 Map map;
-int test = 0;
+Camera camera;
 
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -42,34 +43,37 @@ void OnInit()
 {
 	// NOTE: there is also unitbox.x, unitsphere.x & unitcylinder.x to use.
     // teapot.x
-	g_mesh = LoadFromFile( "resources/meshes/unitcylinder.x" );
-    map.loadMapFromFile("resources/city.txt");
+	// g_mesh = LoadFromFile( "resources/meshes/unitcylinder.x" );
 
+    map.loadMapFromFile("resources/city.txt");
+    map.loadMapMeshFromFile("resources/meshes/unitbox.x");
 }
 
 //----------------------------------------------------------------------------
 void OnShutdown()
 {
-	Release( g_mesh );
+	// Release( g_mesh );
 }
 
 //----------------------------------------------------------------------------
 void OnUpdate( float _deltaTime )
 {
 	// update camera
-	g_angle += _deltaTime;
-	LookAt( D3DXVECTOR3( cosf( g_angle ) * 2.0f, 1.0f, sinf( g_angle ) * 2.0f ), D3DXVECTOR3( 0.0f, 0.5f, 0.0f ) );
+	// g_angle += _deltaTime;
+	// LookAt( D3DXVECTOR3( cosf( g_angle ) * 2.0f, 1.0f, sinf( g_angle ) * 2.0f ), D3DXVECTOR3( 0.0f, 0.5f, 0.0f ) );
+    camera.update();
 }
 
 //----------------------------------------------------------------------------
 void OnRender()
 {
 	// render mesh
-	D3DXVECTOR3 pos( 0.0f, 0.0f, 0.0f );
-	D3DXVECTOR3 rot( 0.0f, 0.0f, 0.0f );
-	D3DXVECTOR3 sca( 1.0f, 1.0f, 1.0f );
-	D3DXVECTOR4 color( 1.0f, 0.5f, 0.0f, 1.0f );
-	Render( g_mesh, pos, rot, sca, color );
+	// D3DXVECTOR3 pos( 0.0f, 0.0f, 0.0f );
+	// D3DXVECTOR3 rot( 0.0f, 0.0f, 0.0f );
+	// D3DXVECTOR3 sca( 1.0f, 1.0f, 1.0f );
+	// D3DXVECTOR4 color( 1.0f, 0.5f, 0.0f, 1.0f );
+	// Render( g_mesh, pos, rot, sca, color );
+    map.renderTerrain();
 }
 
 CPR_MAIN(OnInit, OnShutdown, OnUpdate, OnRender)

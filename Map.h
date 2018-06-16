@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "CPR_Framework.h"
 
 class Map
 {
@@ -12,6 +13,9 @@ private:
 
 public:
     void loadMapFromFile(std::string filename);
+    void loadMapMeshFromFile(char filename[]);
+    void renderTerrain();
+
     Proxy operator[] (size_t row) { return Proxy(mapOfSkyscrappers[row]); }
 
 private:
@@ -25,5 +29,9 @@ private:
     };
 
 private:
+    void getLine(std::fstream& file, std::vector<unsigned int>& dataStruct);
+
+private:
     std::vector<std::vector<unsigned int>> mapOfSkyscrappers;
+    Mesh* terrainMesh;
 };

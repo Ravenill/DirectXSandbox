@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CPR_Test.cpp" />
     <ClCompile Include="Map.cpp" />
   </ItemGroup>
@@ -18,6 +19,7 @@
     <Text Include="Test.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CPR_Framework.h" />
     <ClInclude Include="Map.h" />
   </ItemGroup>
