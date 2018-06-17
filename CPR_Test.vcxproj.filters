@@ -8,6 +8,18 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Skycrapper.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Bird.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="BirdFlock.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AIController.cpp">
+      <Filter>AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -18,6 +30,21 @@
     </ClInclude>
     <ClInclude Include="CPR_Framework.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Skycrapper.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Bird.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="BirdFlock.h">
+      <Filter>AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AIController.h">
+      <Filter>AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -32,6 +59,12 @@
     </Filter>
     <Filter Include="Framework">
       <UniqueIdentifier>{92d61e93-0d85-4f64-bb53-81da0feed880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{8f4e5031-640d-41a4-a996-97e25cf359ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{c89bfae2-bdb9-4c57-83be-4ffae2a8928c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

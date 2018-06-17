@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "CPR_Framework.h"
+#include "Skycrapper.h"
 
 class Map
 {
@@ -12,9 +13,12 @@ private:
     class Proxy;
 
 public:
-    void loadMapFromFile(std::string filename);
-    void loadMapMeshFromFile(char filename[]);
+    void loadMapFromFile(const std::string filename);
+    void loadMapMeshFromFile(char filenameForTerrain[], char filenameForSkycrapper[]);
+    void initializeCity();
+
     void renderTerrain();
+    void renderCity();
 
     Proxy operator[] (size_t row) { return Proxy(mapOfSkyscrappers[row]); }
 
@@ -22,16 +26,17 @@ private:
     class Proxy
     {
     public:
-        Proxy(std::vector<unsigned int>& _row) : row(_row) {}
-        int operator[] (size_t column) { return row[column]; }
+        Proxy(std::vector<Skycrapper>& _row) : row(_row) {}
+        Skycrapper operator[] (size_t column) { return row[column]; }
     private:
-        std::vector<unsigned int>& row;
+        std::vector<Skycrapper>& row;
     };
 
 private:
-    void getLine(std::fstream& file, std::vector<unsigned int>& dataStruct);
+    void readAndSaveRow(std::fstream& file, std::vector<Skycrapper>& dataStruct);
 
 private:
-    std::vector<std::vector<unsigned int>> mapOfSkyscrappers;
+    std::vector<std::vector<Skycrapper>> mapOfSkyscrappers;
     Mesh* terrainMesh;
+    Mesh* skyscrapperMesh;
 };

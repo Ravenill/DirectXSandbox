@@ -1,6 +1,5 @@
 #pragma once
 #include "CPR_Framework.h"
-#define DEG_TO_RAD 0.01745329251994329576923690768489
 
 class Camera
 {

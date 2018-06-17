@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "Defines.h"
 
 Camera::Camera()
 : fov(45.0f)
@@ -19,7 +20,7 @@ Camera::Camera()
 , forwardDirection(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , rightDirection(D3DXVECTOR3(1.0f, 0.0f, 0.0f))
 , defaultRightDirection(D3DXVECTOR3(1.0f, 0.0f, 0.0f))
-, centralMousPos(D3DXVECTOR2(640 / 2, 480 / 2))
+, centralMousPos(D3DXVECTOR2(SIZE_SCREEN_X / 2, SIZE_SCREEN_Y / 2))
 {
     D3DXMatrixIdentity(&viewMatrix);
     setProjectionMatrix();
@@ -82,7 +83,6 @@ void Camera::moveForward(float units)
 
 void Camera::moveHorizontal(float units)
 {
-    
     velocityHorizontal += units;
 
     if (velocityHorizontal > maxVelocityHorizontal)
@@ -135,7 +135,7 @@ void Camera::moveCamera()
         pitchOperation(D3DXToRadian(-0.05f * -diff.y));
     }
     
-    SetCursorPos(640 / 2, 480 / 2);
+    SetCursorPos(SIZE_SCREEN_X / 2, SIZE_SCREEN_Y / 2);
 }
 
 void Camera::updateView()
@@ -156,7 +156,7 @@ void Camera::updateView()
 
     decreaseVelocity();
     //velocityForward = 0;
-    velocityHorizontal = 0;
+    //velocityHorizontal = 0;
     
     target = position + target;
 

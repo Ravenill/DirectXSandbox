@@ -1,6 +1,7 @@
 #include "CPR_Framework.h"
 #include "Map.h"
 #include "Camera.h"
+#include <ctime>
 
 //Mesh* g_mesh = 0;
 //float g_angle = 0.0f;
@@ -45,8 +46,10 @@ void OnInit()
     // teapot.x
 	// g_mesh = LoadFromFile( "resources/meshes/unitcylinder.x" );
 
+    std::srand(static_cast<unsigned int>(time(NULL)));
     map.loadMapFromFile("resources/city.txt");
-    map.loadMapMeshFromFile("resources/meshes/unitbox.x");
+    map.loadMapMeshFromFile("resources/meshes/unitbox.x", "resources/meshes/unitbox.x");
+    map.initializeCity();
 }
 
 //----------------------------------------------------------------------------
@@ -61,6 +64,7 @@ void OnUpdate( float _deltaTime )
 	// update camera
 	// g_angle += _deltaTime;
 	// LookAt( D3DXVECTOR3( cosf( g_angle ) * 2.0f, 1.0f, sinf( g_angle ) * 2.0f ), D3DXVECTOR3( 0.0f, 0.5f, 0.0f ) );
+
     camera.update();
 }
 
@@ -73,7 +77,9 @@ void OnRender()
 	// D3DXVECTOR3 sca( 1.0f, 1.0f, 1.0f );
 	// D3DXVECTOR4 color( 1.0f, 0.5f, 0.0f, 1.0f );
 	// Render( g_mesh, pos, rot, sca, color );
+
     map.renderTerrain();
+    map.renderCity();
 }
 
 CPR_MAIN(OnInit, OnShutdown, OnUpdate, OnRender)

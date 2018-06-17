@@ -3,6 +3,7 @@
 #include <cassert>
 #include <iostream>
 #include <string>
+#include "Defines.h"
 
 Map::Map()
 {
@@ -12,9 +13,10 @@ Map::Map()
 Map::~Map()
 {
     Release(terrainMesh);
+    Release(skyscrapperMesh);
 }
 
-void Map::loadMapFromFile(std::string filename)
+void Map::loadMapFromFile(const std::string filename)
 {
     std::fstream file;
     file.open(filename.c_str(), std::ios::in);
@@ -23,15 +25,17 @@ void Map::loadMapFromFile(std::string filename)
 
     while (!file.eof())
     {
-        std::vector<unsigned int> loader;
-        getLine(file, loader);
+        std::vector<Skycrapper> loader;
+        readAndSaveRow(file, loader);
 
         if (!loader.empty())
             mapOfSkyscrappers.push_back(loader);
     }
+
+    file.close();
 }
 
-void Map::getLine(std::fstream& file, std::vector<unsigned int>& dataStruct)
+void Map::readAndSaveRow(std::fstream& file, std::vector<Skycrapper>& dataStruct)
 {
     char singleChar = 0;
     std::string strNumber = "";
@@ -53,7 +57,8 @@ void Map::getLine(std::fstream& file, std::vector<unsigned int>& dataStruct)
             if (!strNumber.empty())
             {
                 number = atoi(strNumber.c_str());
-                dataStruct.push_back(number);
+                Skycrapper skycrapper(number);
+                dataStruct.push_back(skycrapper);
                 strNumber.clear();
             }
         }
@@ -64,18 +69,52 @@ void Map::getLine(std::fstream& file, std::vector<unsigned int>& dataStruct)
     }
 }
 
-void Map::loadMapMeshFromFile(char filename[])
+void Map::loadMapMeshFromFile(char filenameForTerrain[], char filenameForSkycrapper[])
 {
-    terrainMesh = LoadFromFile(filename);
+    terrainMesh = LoadFromFile(filenameForTerrain);
+    skyscrapperMesh = LoadFromFile(filenameForSkycrapper);
+}
+
+void Map::initializeCity()
+{
+    const D3DXVECTOR3 rotation(0.0f, 0.0f, 0.0f);
+    const D3DXVECTOR3 scale(3.0f, 3.0f, 3.0f);
+    const D3DXVECTOR4 color(0.55f, 0.35f, 0.17f, 1.0f);
+
+    const int ROWS = mapOfSkyscrappers.size();
+    const int COLUMNS = mapOfSkyscrappers[0].size();
+
+    const float SPACES_ROWS = SIZE_OF_GROUND_X / (ROWS);
+    const float SPACES_COLUMNS = SIZE_OF_GROUND_Y / (COLUMNS);
+
+    for (int row = 0; row < ROWS; row++)
+    {
+        for (int column = 0; column < COLUMNS; column++)
+        {
+            const D3DXVECTOR3 position(-50.0f + (SPACES_ROWS / 2) + (row * SPACES_ROWS), -0.5f, -50.0f + (SPACES_COLUMNS / 2) + (column * SPACES_COLUMNS));
+            mapOfSkyscrappers[row][column].setAttributes(position, rotation, scale, color);
+        }
+    }
 }
 
 void Map::renderTerrain()
 {
-     D3DXVECTOR3 pos( 0.0f, -1.0f, 0.0f );
-     D3DXVECTOR3 rot( 0.0f, 0.0f, 0.0f );
-     D3DXVECTOR3 sca( 100.0f, 0.1f, 100.0f );
-     D3DXVECTOR4 color( 1.0f, 0.5f, 0.0f, 1.0f );
-     Render(terrainMesh, pos, rot, sca, color );
+     D3DXVECTOR3 position(0.0f, -1.0f, 0.0f);
+     D3DXVECTOR3 rotation(0.0f, 0.0f, 0.0f);
+     D3DXVECTOR3 scale(SIZE_OF_GROUND_X, 0.1f, SIZE_OF_GROUND_Y);
+     D3DXVECTOR4 color(0.1f, 0.9f, 0.1f, 1.0f);
+     Render(terrainMesh, position, rotation, scale, color);
+}
+
+void Map::renderCity()
+{
+    for (auto& row : mapOfSkyscrappers)
+    {
+        for (auto& skycrapper : row)
+        {
+            skycrapper.renderSkycrapper(skyscrapperMesh);
+        }
+    }
 }
 
 
