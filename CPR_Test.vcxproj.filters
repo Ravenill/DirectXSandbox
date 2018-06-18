@@ -20,6 +20,9 @@
     <ClCompile Include="AIController.cpp">
       <Filter>AI</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -46,6 +49,9 @@
     <ClInclude Include="AIController.h">
       <Filter>AI</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>General</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Test.txt" />
@@ -65,6 +71,9 @@
     </Filter>
     <Filter Include="AI">
       <UniqueIdentifier>{c89bfae2-bdb9-4c57-83be-4ffae2a8928c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="General">
+      <UniqueIdentifier>{8ce64c0e-9eb4-43d0-8054-fe03d3a462d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

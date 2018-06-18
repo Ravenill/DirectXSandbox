@@ -1,13 +1,23 @@
 #pragma once
 #include "BirdFlock.h"
+#include "Map.h"
 
 class AIController
 {
 public:
-    AIController();
+    AIController(Map& map_);
     ~AIController();
 
-private:
+public:
+    void loadBirdMeshFromFile(char filename[]);
+    void createFlocks(const int amountOfFlocks, const int amoutOfBirdsInFlock);
 
+    void update();
+    void renderFlocks();
+
+private:
+    std::vector<BirdFlock> birdFlocks;
+    Mesh* birdMesh;
+    Map& map;
 };
 

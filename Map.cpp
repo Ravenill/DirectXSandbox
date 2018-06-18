@@ -77,10 +77,6 @@ void Map::loadMapMeshFromFile(char filenameForTerrain[], char filenameForSkycrap
 
 void Map::initializeCity()
 {
-    const D3DXVECTOR3 rotation(0.0f, 0.0f, 0.0f);
-    const D3DXVECTOR3 scale(3.0f, 3.0f, 3.0f);
-    const D3DXVECTOR4 color(0.55f, 0.35f, 0.17f, 1.0f);
-
     const int ROWS = mapOfSkyscrappers.size();
     const int COLUMNS = mapOfSkyscrappers[0].size();
 
@@ -92,18 +88,14 @@ void Map::initializeCity()
         for (int column = 0; column < COLUMNS; column++)
         {
             const D3DXVECTOR3 position(-50.0f + (SPACES_ROWS / 2) + (row * SPACES_ROWS), -0.5f, -50.0f + (SPACES_COLUMNS / 2) + (column * SPACES_COLUMNS));
-            mapOfSkyscrappers[row][column].setAttributes(position, rotation, scale, color);
+            mapOfSkyscrappers[row][column].setAttributes(position, BUILDING_ROTATION, BUILDING_SCALE, BUILDING_COLOR);
         }
     }
 }
 
 void Map::renderTerrain()
 {
-     D3DXVECTOR3 position(0.0f, -1.0f, 0.0f);
-     D3DXVECTOR3 rotation(0.0f, 0.0f, 0.0f);
-     D3DXVECTOR3 scale(SIZE_OF_GROUND_X, 0.1f, SIZE_OF_GROUND_Y);
-     D3DXVECTOR4 color(0.1f, 0.9f, 0.1f, 1.0f);
-     Render(terrainMesh, position, rotation, scale, color);
+     Render(terrainMesh, TERRAIN_POSITION, TERRAIN_ROTATION, TERRAIN_SCALE, TERRAIN_COLOR);
 }
 
 void Map::renderCity()

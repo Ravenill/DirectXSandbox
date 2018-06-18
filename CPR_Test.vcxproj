@@ -16,6 +16,7 @@
     <ClCompile Include="BirdFlock.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CPR_Test.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Skycrapper.cpp" />
     <ClCompile Include="Map.cpp" />
   </ItemGroup>
@@ -29,6 +30,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CPR_Framework.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Skycrapper.h" />
     <ClInclude Include="Map.h" />
   </ItemGroup>

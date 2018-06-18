@@ -1,13 +1,9 @@
-﻿  CPR_Test.cpp
-  Bird.cpp
-c:\users\kruczek\desktop\cpr_test_vs2015\cpr_test_vs2015\bird.cpp(73): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\kruczek\desktop\cpr_test_vs2015\cpr_test_vs2015\bird.cpp(80): warning C4305: '=': truncation from 'double' to 'float'
+﻿  Map.cpp
+  Game.cpp
+  CPR_Test.cpp
   Generating Code...
   Compiling...
-  AIController.cpp
-  Generating Code...
-  Compiling...
-  BirdFlock.cpp
+  Camera.cpp
   Generating Code...
   CPR_Test.vcxproj -> C:\Users\Kruczek\Desktop\CPR_Test_VS2015\CPR_Test_VS2015\Debug\CPR_Test.exe
   CPR_Test.vcxproj -> C:\Users\Kruczek\Desktop\CPR_Test_VS2015\CPR_Test_VS2015\Debug\CPR_Test.pdb (Full PDB)

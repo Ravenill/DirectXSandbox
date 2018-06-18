@@ -1,24 +1,30 @@
 #pragma once
 #include "CPR_Framework.h"
+#include "Map.h"
 
 class Bird
 {
 public:
-    Bird();
-    Bird(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_, const float maxVelocityForward);
+    Bird(Map & map_);
+    Bird(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_, const float maxVelocityForward, Map& map_);
     ~Bird();
 
 public:
+    void initialize(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_, const float maxVelocityForward, const float startVelocityForward);
+
     void update();
     void setTarget(D3DXVECTOR3 target_);
     void changeColor(const D3DXVECTOR4 color_);
     void changeSpeed(const float speed);
 
-    void render();
+    void render(Mesh* mesh);
+
+    bool isReachedTarget();
 
 private:
     void updateDesiredDirection();
     void changeSpeed();
+    void createAvoidingForce();
 
 private:
     D3DXVECTOR3 position;
@@ -36,5 +42,7 @@ private:
     float maxVelocityForward;
 
     float yaw;
+
+    Map& map;
 };
 
