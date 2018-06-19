@@ -10,6 +10,5 @@ public:
 private:
     D3DXVECTOR3 position;
     D3DXVECTOR3 direction;
-
 };
 

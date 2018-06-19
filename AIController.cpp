@@ -5,7 +5,7 @@ AIController::AIController(Map& map_)
 : birdMesh(0)
 , map(map_)
 {
-
+    
 }
 
 
@@ -22,6 +22,8 @@ void AIController::loadBirdMeshFromFile(char filename[])
 void AIController::createFlocks(const int amountOfFlocks, const int amoutOfBirdsInFlock)
 {
     D3DXVECTOR3 pos(SIZE_OF_GROUND_X / 2, static_cast<float>((rand() % 4) + 12.0f), SIZE_OF_GROUND_Z / 2);
+
+    birdFlocks.reserve(amountOfFlocks);
 
     for (int i = 0; i < amountOfFlocks; i++)
     {

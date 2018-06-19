@@ -1,6 +1,8 @@
 #pragma once
 #include "CPR_Framework.h"
 #include "Camera.h"
+#include "RedBall.h"
+#include <vector>
 
 class Player
 {
@@ -15,5 +17,6 @@ private:
     D3DXVECTOR3& direction;
     D3DXVECTOR3& directionLook;
 
+    std::vector<RedBall> redBallList;
 };
 

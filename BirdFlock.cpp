@@ -5,6 +5,8 @@ BirdFlock::BirdFlock(const int amountOfBirds, const float height, Map& map_)
 : map(map_)
 , heightOfFlight(height)
 {
+    birds.reserve(amountOfBirds);
+    
     for (int i = 0; i < amountOfBirds; i++)
     {
         Bird newBird(map);
