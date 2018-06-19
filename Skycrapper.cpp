@@ -38,9 +38,14 @@ Skycrapper::~Skycrapper()
 
 }
 
-int Skycrapper::getHeight() const
+const int Skycrapper::getHeight() const
 {
     return height;
+}
+
+const D3DXVECTOR3 Skycrapper::getPosition() const
+{
+    return position;
 }
 
 void Skycrapper::changeColor(const D3DXVECTOR4 color_)

@@ -5,14 +5,14 @@
 class Bird
 {
 public:
-    Bird(Map & map_);
+    Bird(Map& map_);
     Bird(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_, const float maxVelocityForward, Map& map_);
     ~Bird();
 
 public:
     void initialize(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_, const float maxVelocityForward, const float startVelocityForward);
 
-    void update();
+    void update(float deltaTime);
     void setTarget(D3DXVECTOR3 target_);
     void changeColor(const D3DXVECTOR4 color_);
     void changeSpeed(const float speed);
@@ -24,7 +24,9 @@ public:
 private:
     void updateDesiredDirection();
     void changeSpeed();
-    void createAvoidingForce();
+
+    void addAvoidingForce();
+    void addNearestBuildingTo(std::vector<Skycrapper>& nearSkycreappers);
 
 private:
     D3DXVECTOR3 position;

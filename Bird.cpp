@@ -1,4 +1,5 @@
 #include "Bird.h"
+#include "Defines.h"
 
 Bird::Bird(Map& map_)
 : position(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
@@ -47,8 +48,7 @@ void Bird::initialize(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, 
     color = color_;
 
     D3DXVECTOR3 target_ = position;
-    target_.x += 30.0f;
-    target_.z += 30.0f;
+    target_.z += 1.0f;
     setTarget(target_);
     D3DXVec3Normalize(&desiredDirection, &(target - position));
     D3DXVec3Normalize(&direction, &(target - position));
@@ -59,7 +59,7 @@ void Bird::initialize(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, 
     yaw = 0;
 }
 
-void Bird::update()
+void Bird::update(float deltaTime)
 {
     D3DXVec3Normalize(&direction, &direction);
     D3DXVec3Normalize(&desiredDirection, &desiredDirection);
@@ -90,7 +90,7 @@ void Bird::update()
         D3DXVec3TransformCoord(&direction, &direction, &rotationMatrix);
     }
     
-    D3DXVECTOR3 velocity = *(D3DXVec3Normalize(&direction, &direction)) * velocityForward;
+    D3DXVECTOR3 velocity = *(D3DXVec3Normalize(&direction, &direction)) * velocityForward * deltaTime;
     position += velocity;
 
     if ((rand() % 100) > 95)
@@ -98,7 +98,7 @@ void Bird::update()
         changeSpeed();
     }
 
-    createAvoidingForce();
+    addAvoidingForce();
     updateDesiredDirection();
 }
 
@@ -116,13 +116,13 @@ void Bird::updateDesiredDirection()
 void Bird::changeSpeed()
 {
     float changer = static_cast<float>((rand() % 3) - 1);
-    changer /= 5000;
+    changer = (changer * (MAX_BIRD_SPEED - MIN_BIRD_SPEED)) / AMOUNT_OF_BIRDS_SPEED;
 
     velocityForward += changer;
 
-    if (velocityForward <= 0.004f)
+    if (velocityForward <= MIN_BIRD_SPEED)
     {
-        velocityForward = 0.004f;
+        velocityForward = MIN_BIRD_SPEED;
     }
     else if (velocityForward > maxVelocityForward)
     {
@@ -130,9 +130,56 @@ void Bird::changeSpeed()
     }
 }
 
-void Bird::createAvoidingForce()
+void Bird::addAvoidingForce()
 {
-    const float DETECTING_RANGE = 5.0f;
+    const float MAX_SEE_AHEAD = 6.0f;
+    const float FORCE = 0.002f;
+    std::vector<Skycrapper> nearSkycrappers;
+    
+    addNearestBuildingTo(nearSkycrappers);
+    
+    const D3DXVECTOR3 ORIGINAL_POSITION = position;
+    const D3DXVECTOR3 HEAD_VECTOR = position + (*(D3DXVec3Normalize(&direction, &direction)) * MAX_SEE_AHEAD);
+    for (auto& building : nearSkycrappers)
+    {
+        D3DXVECTOR3 buildingPosition = building.getPosition();
+        buildingPosition.y = position.y;
+
+        D3DXVECTOR3 avoidingForce = HEAD_VECTOR - buildingPosition;
+        avoidingForce = *(D3DXVec3Normalize(&avoidingForce, &avoidingForce)) * FORCE;
+        position += avoidingForce;
+    }
+}
+
+void Bird::addNearestBuildingTo(std::vector<Skycrapper>& nearSkycrappers)
+{
+    const float DETECTING_RANGE = 8.0f;
+
+    const int ROWS = map.getNumberOfRows();
+    const int COLUMNS = map.getNumberOfColumns();
+    
+    for (int row = 0; row < ROWS; row++)
+    {
+        const D3DXVECTOR3& POSITION_OF_BUILDING = map[row][0].getPosition();
+
+        if ((POSITION_OF_BUILDING.x >= (position.x - DETECTING_RANGE)) && (POSITION_OF_BUILDING.x <= (position.x + DETECTING_RANGE)))
+        {
+            for (int column = 0; column < COLUMNS; column++)
+            {
+                const D3DXVECTOR3& POSITION_OF_NEXT_BUILDING = map[row][column].getPosition();
+
+                if ((POSITION_OF_NEXT_BUILDING.z >= (position.z - DETECTING_RANGE)) && (POSITION_OF_NEXT_BUILDING.z <= (position.z + DETECTING_RANGE)))
+                {
+                    const float HEIGHT_OF_BUILDING = BUILDING_SCALE.y * map[row][column].getHeight();
+
+                    if (position.y <= HEIGHT_OF_BUILDING)
+                    {
+                        nearSkycrappers.push_back(map[row][column]);
+                    }
+                }
+            }
+        }
+    }
 }
 
 void Bird::changeColor(const D3DXVECTOR4 color_)
@@ -155,7 +202,7 @@ bool Bird::isReachedTarget()
     D3DXVECTOR3 diff = target - position;
     float lengthDiff = D3DXVec3Length(&diff);
 
-    if (lengthDiff <= 8.0f)
+    if (lengthDiff <= 10.0f)
     {
         return true;
     }

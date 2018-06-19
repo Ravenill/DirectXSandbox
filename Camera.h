@@ -8,16 +8,21 @@ public:
     ~Camera();
 
 public:
-    void update();
+    void update(float deltaTime);
 
     void yawOperation(float radians);
     void pitchOperation(float radians);
     void moveForward(float units);
     void moveHorizontal(float units);
 
+    D3DXVECTOR3& getPosition();
+    D3DXVECTOR3& getLookDirection();
+    D3DXVECTOR3& getDirection();
+
 private:
+    void handleSteering(float deltaTime);
+
     void setProjectionMatrix();
-    void moveCamera();
     void updateView();
     void decreaseVelocity();
 
@@ -39,9 +44,9 @@ private:
     D3DXVECTOR3 position;
     D3DXVECTOR3 target;
     const D3DXVECTOR3 defaultTarget;
-    D3DXVECTOR3 up;
 
-    D3DXVECTOR3 forwardDirection;
+    D3DXVECTOR3 direction;
+    D3DXVECTOR3 lookDirection;
     D3DXVECTOR3 rightDirection;
     const D3DXVECTOR3 defaultRightDirection;
 

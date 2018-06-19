@@ -12,7 +12,7 @@ public:
     void loadBirdMeshFromFile(char filename[]);
     void createFlocks(const int amountOfFlocks, const int amoutOfBirdsInFlock);
 
-    void update();
+    void update(float deltaTime);
     void renderFlocks();
 
 private:

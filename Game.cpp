@@ -6,6 +6,7 @@ Game::Game()
 : map()
 , camera()
 , AI(map)
+, player(camera)
 {
     std::srand(static_cast<unsigned int>(time(NULL)));
 }
@@ -40,10 +41,10 @@ void Game::init()
     AI.createFlocks(AMOUNT_OF_FLOCKS, AMOUNT_OF_BIRDS_IN_FLOCK);
 }
 
-void Game::update()
+void Game::update(float deltaTime)
 {
-    camera.update();
-    AI.update();
+    camera.update(deltaTime);
+    AI.update(deltaTime);
 }
 
 void Game::render()

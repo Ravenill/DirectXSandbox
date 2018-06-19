@@ -16,8 +16,8 @@ Camera::Camera()
 , position(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , target(D3DXVECTOR3(0.0f, 0.0f, 1.0f))
 , defaultTarget(D3DXVECTOR3(0.0f, 0.0f, 1.0f))
-, up(D3DXVECTOR3(0.0f, 1.0f, 0.0f))
-, forwardDirection(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
+, direction(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
+, lookDirection(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , rightDirection(D3DXVECTOR3(1.0f, 0.0f, 0.0f))
 , defaultRightDirection(D3DXVECTOR3(1.0f, 0.0f, 0.0f))
 , centralMousPos(D3DXVECTOR2(SIZE_SCREEN_X / 2, SIZE_SCREEN_Y / 2))
@@ -31,9 +31,9 @@ Camera::~Camera()
 
 }
 
-void Camera::update()
+void Camera::update(float deltaTime)
 {
-    moveCamera();
+    handleSteering(deltaTime);
     updateView();
 }
 
@@ -96,43 +96,58 @@ void Camera::moveHorizontal(float units)
     
 }
 
-void Camera::moveCamera()
+D3DXVECTOR3& Camera::getPosition()
+{
+    return position;
+}
+
+D3DXVECTOR3& Camera::getLookDirection()
+{
+    return lookDirection;
+}
+
+D3DXVECTOR3 & Camera::getDirection()
+{
+    return direction;
+}
+
+void Camera::handleSteering(float deltaTime)
 {
     D3DXVECTOR2 actualMousePos = GetMousePosition();
     D3DXVECTOR2 diff = actualMousePos - centralMousPos;
     
     if (IsKeyPressed(Key::KEY_W) || IsKeyPressed(Key::KEY_UP))
     {
-        moveForward(0.01f);
+        moveForward(CAMERA_SPEED_FORWARD * deltaTime);
     }
     if (IsKeyPressed(Key::KEY_A) || IsKeyPressed(Key::KEY_LEFT))
     {
-        moveHorizontal(-0.01f);
+        moveHorizontal(-CAMERA_SPEED_HORIZONTAL * deltaTime);
     }
     if (IsKeyPressed(Key::KEY_D) || IsKeyPressed(Key::KEY_RIGHT))
     {
-        moveHorizontal(0.005f);
+        moveHorizontal(CAMERA_SPEED_HORIZONTAL * deltaTime);
     }
     if (IsKeyPressed(Key::KEY_S) || IsKeyPressed(Key::KEY_DOWN))
     {
-        moveForward(-0.005f);
+        moveForward(-CAMERA_SPEED_FORWARD * deltaTime);
     }
     
     if (diff.x > 0)
     {
-        yawOperation(D3DXToRadian(0.05f * diff.x));
+        yawOperation(D3DXToRadian(CAMERA_SPEED_ROTATION * diff.x));
     }
     if (diff.x < 0)
     {
-        yawOperation(D3DXToRadian(-0.05f * -diff.x));
+        yawOperation(D3DXToRadian(-CAMERA_SPEED_ROTATION * -diff.x));
     }
     if (diff.y > 0)
     {
-        pitchOperation(D3DXToRadian(0.05f * diff.y));
+        pitchOperation(D3DXToRadian(CAMERA_SPEED_ROTATION * diff.y));
     }
     if (diff.y < 0)
     {
-        pitchOperation(D3DXToRadian(-0.05f * -diff.y));
+        pitchOperation(D3DXToRadian(-CAMERA_SPEED_ROTATION * -diff.y));
     }
     
     SetCursorPos(SIZE_SCREEN_X / 2, SIZE_SCREEN_Y / 2);
@@ -144,15 +159,18 @@ void Camera::updateView()
 
     D3DXVec3TransformCoord(&target, &defaultTarget, &rotationMatrix);
     D3DXVec3TransformCoord(&rightDirection, &defaultRightDirection, &rotationMatrix);
-    D3DXVec3Normalize(&forwardDirection, &target);
+    D3DXVec3Normalize(&lookDirection, &target);
 
-    D3DXVECTOR3 forward = *(D3DXVec3Normalize(&forwardDirection, &forwardDirection)) * velocityForward;
+    // feature - slow down, while looking up or down
+    D3DXVECTOR3 forward = *(D3DXVec3Normalize(&lookDirection, &lookDirection)) * velocityForward;
     D3DXVECTOR3 horizontal = *(D3DXVec3Normalize(&rightDirection, &rightDirection)) * velocityHorizontal;
     forward.y = 0;
     horizontal.y = 0; //to be sure :)
 
     position += forward;
     position += horizontal;
+
+    D3DXVec3Normalize(&direction, &forward);
 
     decreaseVelocity();
     //velocityForward = 0;

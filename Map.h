@@ -20,6 +20,9 @@ public:
     void renderTerrain();
     void renderCity();
 
+    const int getNumberOfRows() const;
+    const int getNumberOfColumns() const;
+
     Proxy operator[] (size_t row) { return Proxy(mapOfSkyscrappers[row]); }
 
 private:
@@ -34,9 +37,13 @@ private:
 
 private:
     void readAndSaveRow(std::fstream& file, std::vector<Skycrapper>& dataStruct);
+    void calculateRowsAndColumns();
 
 private:
     std::vector<std::vector<Skycrapper>> mapOfSkyscrappers;
     Mesh* terrainMesh;
     Mesh* skyscrapperMesh;
+
+    int rows;
+    int columns;
 };

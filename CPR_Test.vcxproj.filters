@@ -6,7 +6,7 @@
       <Filter>Map</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Camera</Filter>
+      <Filter>Player\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Skycrapper.cpp">
       <Filter>Map</Filter>
@@ -23,13 +23,22 @@
     <ClCompile Include="Game.cpp">
       <Filter>General</Filter>
     </ClCompile>
+    <ClCompile Include="Crosshair.cpp">
+      <Filter>Player\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="RedBall.cpp">
+      <Filter>Player\ShootingComponent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
       <Filter>Map</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Camera</Filter>
+      <Filter>Player\Camera</Filter>
     </ClInclude>
     <ClInclude Include="CPR_Framework.h">
       <Filter>Framework</Filter>
@@ -52,6 +61,15 @@
     <ClInclude Include="Game.h">
       <Filter>General</Filter>
     </ClInclude>
+    <ClInclude Include="Crosshair.h">
+      <Filter>Player\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RedBall.h">
+      <Filter>Player\ShootingComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Test.txt" />
@@ -59,9 +77,6 @@
   <ItemGroup>
     <Filter Include="Map">
       <UniqueIdentifier>{295f02ea-c841-4dac-bd73-7ddf294509fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{4049fdde-6a72-46a2-a819-5f9442b6cebb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework">
       <UniqueIdentifier>{92d61e93-0d85-4f64-bb53-81da0feed880}</UniqueIdentifier>
@@ -74,6 +89,15 @@
     </Filter>
     <Filter Include="General">
       <UniqueIdentifier>{8ce64c0e-9eb4-43d0-8054-fe03d3a462d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{cfe9d583-c562-41f1-bbd9-2e6f765097bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Camera">
+      <UniqueIdentifier>{4049fdde-6a72-46a2-a819-5f9442b6cebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\ShootingComponent">
+      <UniqueIdentifier>{70089c86-263c-453d-ac69-f7e0d24f479e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

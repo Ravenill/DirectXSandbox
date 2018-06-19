@@ -59,7 +59,7 @@ void OnUpdate( float _deltaTime )
 	// g_angle += _deltaTime;
 	// LookAt( D3DXVECTOR3( cosf( g_angle ) * 2.0f, 1.0f, sinf( g_angle ) * 2.0f ), D3DXVECTOR3( 0.0f, 0.5f, 0.0f ) );
 
-    game.update();
+    game.update(_deltaTime);
 }
 
 //----------------------------------------------------------------------------

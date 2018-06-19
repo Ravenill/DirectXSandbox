@@ -33,6 +33,8 @@ void Map::loadMapFromFile(const std::string filename)
     }
 
     file.close();
+
+    calculateRowsAndColumns();
 }
 
 void Map::readAndSaveRow(std::fstream& file, std::vector<Skycrapper>& dataStruct)
@@ -69,6 +71,12 @@ void Map::readAndSaveRow(std::fstream& file, std::vector<Skycrapper>& dataStruct
     }
 }
 
+void Map::calculateRowsAndColumns()
+{
+    rows = mapOfSkyscrappers.size();
+    columns = mapOfSkyscrappers[0].size();
+}
+
 void Map::loadMapMeshFromFile(char filenameForTerrain[], char filenameForSkycrapper[])
 {
     terrainMesh = LoadFromFile(filenameForTerrain);
@@ -77,17 +85,14 @@ void Map::loadMapMeshFromFile(char filenameForTerrain[], char filenameForSkycrap
 
 void Map::initializeCity()
 {
-    const int ROWS = mapOfSkyscrappers.size();
-    const int COLUMNS = mapOfSkyscrappers[0].size();
+    const float SPACES_ROWS = SIZE_OF_GROUND_X / (rows);
+    const float SPACES_COLUMNS = SIZE_OF_GROUND_Z / (columns);
 
-    const float SPACES_ROWS = SIZE_OF_GROUND_X / (ROWS);
-    const float SPACES_COLUMNS = SIZE_OF_GROUND_Y / (COLUMNS);
-
-    for (int row = 0; row < ROWS; row++)
+    for (int row = 0; row < rows; row++)
     {
-        for (int column = 0; column < COLUMNS; column++)
+        for (int column = 0; column < columns; column++)
         {
-            const D3DXVECTOR3 position(-50.0f + (SPACES_ROWS / 2) + (row * SPACES_ROWS), -0.5f, -50.0f + (SPACES_COLUMNS / 2) + (column * SPACES_COLUMNS));
+            const D3DXVECTOR3 position(-50.0f + (SPACES_ROWS / 2) + (row * SPACES_ROWS), 0.0f, -50.0f + (SPACES_COLUMNS / 2) + (column * SPACES_COLUMNS));
             mapOfSkyscrappers[row][column].setAttributes(position, BUILDING_ROTATION, BUILDING_SCALE, BUILDING_COLOR);
         }
     }
@@ -107,6 +112,16 @@ void Map::renderCity()
             skycrapper.renderSkycrapper(skyscrapperMesh);
         }
     }
+}
+
+const int Map::getNumberOfRows() const
+{
+    return rows;
+}
+
+const int Map::getNumberOfColumns() const
+{
+    return columns;
 }
 
 
