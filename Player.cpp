@@ -14,3 +14,17 @@ Player::~Player()
 {
 
 }
+
+void Player::update(float deltaTime)
+{
+    updateRedBalls();
+}
+
+void Player::shoot()
+{
+
+}
+
+void Player::updateRedBalls()
+{
+}

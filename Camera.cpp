@@ -20,7 +20,6 @@ Camera::Camera()
 , lookDirection(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , rightDirection(D3DXVECTOR3(1.0f, 0.0f, 0.0f))
 , defaultRightDirection(D3DXVECTOR3(1.0f, 0.0f, 0.0f))
-, centralMousPos(D3DXVECTOR2(SIZE_SCREEN_X / 2, SIZE_SCREEN_Y / 2))
 {
     D3DXMatrixIdentity(&viewMatrix);
     setProjectionMatrix();
@@ -33,7 +32,6 @@ Camera::~Camera()
 
 void Camera::update(float deltaTime)
 {
-    handleSteering(deltaTime);
     updateView();
 }
 
@@ -109,48 +107,6 @@ D3DXVECTOR3& Camera::getLookDirection()
 D3DXVECTOR3 & Camera::getDirection()
 {
     return direction;
-}
-
-void Camera::handleSteering(float deltaTime)
-{
-    D3DXVECTOR2 actualMousePos = GetMousePosition();
-    D3DXVECTOR2 diff = actualMousePos - centralMousPos;
-    
-    if (IsKeyPressed(Key::KEY_W) || IsKeyPressed(Key::KEY_UP))
-    {
-        moveForward(CAMERA_SPEED_FORWARD * deltaTime);
-    }
-    if (IsKeyPressed(Key::KEY_A) || IsKeyPressed(Key::KEY_LEFT))
-    {
-        moveHorizontal(-CAMERA_SPEED_HORIZONTAL * deltaTime);
-    }
-    if (IsKeyPressed(Key::KEY_D) || IsKeyPressed(Key::KEY_RIGHT))
-    {
-        moveHorizontal(CAMERA_SPEED_HORIZONTAL * deltaTime);
-    }
-    if (IsKeyPressed(Key::KEY_S) || IsKeyPressed(Key::KEY_DOWN))
-    {
-        moveForward(-CAMERA_SPEED_FORWARD * deltaTime);
-    }
-    
-    if (diff.x > 0)
-    {
-        yawOperation(D3DXToRadian(CAMERA_SPEED_ROTATION * diff.x));
-    }
-    if (diff.x < 0)
-    {
-        yawOperation(D3DXToRadian(-CAMERA_SPEED_ROTATION * -diff.x));
-    }
-    if (diff.y > 0)
-    {
-        pitchOperation(D3DXToRadian(CAMERA_SPEED_ROTATION * diff.y));
-    }
-    if (diff.y < 0)
-    {
-        pitchOperation(D3DXToRadian(-CAMERA_SPEED_ROTATION * -diff.y));
-    }
-    
-    SetCursorPos(SIZE_SCREEN_X / 2, SIZE_SCREEN_Y / 2);
 }
 
 void Camera::updateView()

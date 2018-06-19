@@ -20,8 +20,6 @@ public:
     D3DXVECTOR3& getDirection();
 
 private:
-    void handleSteering(float deltaTime);
-
     void setProjectionMatrix();
     void updateView();
     void decreaseVelocity();
@@ -53,7 +51,5 @@ private:
     D3DXMATRIX viewMatrix;
     D3DXMATRIX projectionMatrix;
     D3DXMATRIX rotationMatrix;
-
-    D3DXVECTOR2 centralMousPos;
 };
 

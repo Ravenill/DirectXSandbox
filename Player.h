@@ -10,6 +10,13 @@ public:
     Player(Camera& camera_);
     ~Player();
 
+public:
+    void update(float deltaTick);
+    void shoot();
+
+private:
+    void updateRedBalls();
+
 private:
     Camera& camera;
 

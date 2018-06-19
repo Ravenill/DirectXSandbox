@@ -71,14 +71,7 @@ void Bird::update(float deltaTime)
 
     // quickfix
     // TODO: Check why dotProduct is too high or too low (because float?)
-    if (dotProduct > 1)
-    {
-        dotProduct = 1.0f;
-    }
-    else if (dotProduct < -1)
-    {
-        dotProduct = -1.0f;
-    }
+    dotProduct = (dotProduct > 1) ? 1 : ((dotProduct < -1) ? -1 : dotProduct);
     // +++++++++++++++++++++++++++++++++++
 
     float angle = acosf(dotProduct);
@@ -133,7 +126,6 @@ void Bird::changeSpeed()
 void Bird::addAvoidingForce()
 {
     const float MAX_SEE_AHEAD = 6.0f;
-    const float FORCE = 0.002f;
     std::vector<Skycrapper> nearSkycrappers;
     
     addNearestBuildingTo(nearSkycrappers);
@@ -141,12 +133,28 @@ void Bird::addAvoidingForce()
     const D3DXVECTOR3 ORIGINAL_POSITION = position;
     const D3DXVECTOR3 HEAD_VECTOR = position + (*(D3DXVec3Normalize(&direction, &direction)) * MAX_SEE_AHEAD);
     for (auto& building : nearSkycrappers)
-    {
+    {       
         D3DXVECTOR3 buildingPosition = building.getPosition();
         buildingPosition.y = position.y;
 
         D3DXVECTOR3 avoidingForce = HEAD_VECTOR - buildingPosition;
-        avoidingForce = *(D3DXVec3Normalize(&avoidingForce, &avoidingForce)) * FORCE;
+        D3DXVec3Normalize(&avoidingForce, &avoidingForce);
+
+        const float force = 1 / (D3DXVec3Length(&(buildingPosition - position)) * 75);
+
+        //more push
+        D3DXVECTOR3 crossProduct;
+        D3DXVec3Cross(&crossProduct, &avoidingForce, &HEAD_VECTOR);
+        const float lengthCrossProduct = D3DXVec3Length(&crossProduct);
+        float angle = asin(lengthCrossProduct);
+        angle = (angle > 1) ? 1 : ((angle < -1) ? -1 : angle); //to be sure - like quickfix in update
+
+        if ((angle > -0.1 && angle < 0.1) || (angle > ((D3DX_PI * 2) - 0.1) && angle < ((D3DX_PI * 2) + 0.1)))
+        {
+            avoidingForce.x += 0.15f;
+        }
+
+        avoidingForce = *(D3DXVec3Normalize(&avoidingForce, &avoidingForce)) * force; 
         position += avoidingForce;
     }
 }

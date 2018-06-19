@@ -1,8 +1,7 @@
 #pragma once
-#include "Camera.h"
 #include "AIController.h"
 #include "Map.h"
-#include "Player.h"
+#include "PlayerController.h"
 
 class Game
 {
@@ -12,7 +11,7 @@ public:
 
 public:
     Map& getMap();
-    Camera& getCamera();
+    PlayerController& getPlayerController();
     AIController& getAI();
 
     void init();
@@ -21,8 +20,7 @@ public:
 
 private:
     Map map;
-    Camera camera;
+    PlayerController playerController;
     AIController AI;
-    Player player;
 };
 

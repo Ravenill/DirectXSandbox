@@ -1,15 +1,3 @@
-﻿  Player.cpp
-  BirdFlock.cpp
-  AIController.cpp
-  Generating Code...
-  Compiling...
-  Map.cpp
-  Game.cpp
-  Camera.cpp
-  CPR_Test.cpp
-  Bird.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  RedBall.cpp
+﻿  Bird.cpp
   CPR_Test.vcxproj -> C:\Users\Kruczek\Desktop\CPR_Test_VS2015\CPR_Test_VS2015\Debug\CPR_Test.exe
   CPR_Test.vcxproj -> C:\Users\Kruczek\Desktop\CPR_Test_VS2015\CPR_Test_VS2015\Debug\CPR_Test.pdb (Full PDB)

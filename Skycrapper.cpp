@@ -1,7 +1,5 @@
 #include "Skycrapper.h"
 
-
-
 Skycrapper::Skycrapper()
 : position(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , rotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
@@ -31,7 +29,6 @@ Skycrapper::Skycrapper(const int height_)
 {
 
 }
-
 
 Skycrapper::~Skycrapper()
 {

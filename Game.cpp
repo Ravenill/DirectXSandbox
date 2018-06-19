@@ -4,9 +4,8 @@
 
 Game::Game()
 : map()
-, camera()
+, playerController()
 , AI(map)
-, player(camera)
 {
     std::srand(static_cast<unsigned int>(time(NULL)));
 }
@@ -21,9 +20,9 @@ Map& Game::getMap()
     return map;
 }
 
-Camera& Game::getCamera()
+PlayerController& Game::getPlayerController()
 {
-    return camera;
+    return playerController;
 }
 
 AIController& Game::getAI()
@@ -43,7 +42,7 @@ void Game::init()
 
 void Game::update(float deltaTime)
 {
-    camera.update(deltaTime);
+    playerController.update(deltaTime);
     AI.update(deltaTime);
 }
 

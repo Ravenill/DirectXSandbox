@@ -2,6 +2,7 @@
 
 const int SIZE_SCREEN_X = 640;
 const int SIZE_SCREEN_Y = 480;
+const D3DXVECTOR2 centralMousPos(SIZE_SCREEN_X / 2, SIZE_SCREEN_Y / 2);
 
 const float SIZE_OF_GROUND_X = 100.0f;
 const float SIZE_OF_GROUND_Z = 100.0f;
