@@ -20,10 +20,16 @@ const D3DXVECTOR3 BIRD_ROTATION(0.0f, 0.0f, 0.0f);
 const D3DXVECTOR3 BIRD_SCALE(1.0f, 1.0f, 1.0f);
 const D3DXVECTOR4 BIRD_COLOR(0.93f, 0.93f, 0.0f, 1.0f);
 
+const D3DXVECTOR3 BALL_ROTATION(0.0f, 0.0f, 0.0f);
+const D3DXVECTOR3 BALL_SCALE(0.2f, 0.2f, 0.2f);
+const D3DXVECTOR4 BALL_COLOR(0.93f, 0.0f, 0.0f, 1.0f);
+
+const float BALL_INIT_VELOCITY = 10.0f;
+
 const float MIN_BIRD_SPEED = 3.0f;
 const float MAX_BIRD_SPEED = 5.0f;
 const float INITIAL_BIRD_SPEED = 4.0f;
-const float AMOUNT_OF_BIRDS_SPEED = 40;
+const float AMOUNT_OF_SPEEDS = 40;
 
 const int MAX_AMOUNT_OF_RED_BALLS = 5;
 

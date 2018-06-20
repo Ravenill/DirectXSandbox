@@ -1,17 +1,21 @@
 #include "PlayerController.h"
 #include "Defines.h"
 
-PlayerController::PlayerController()
+PlayerController::PlayerController(Map& map_)
 : camera()
-, player(camera)
+, player(camera, map_)
 {
 
 }
 
-
 PlayerController::~PlayerController()
 {
 
+}
+
+void PlayerController::init()
+{
+    player.loadMeshFromFile("resources/meshes/unitsphere.x");
 }
 
 void PlayerController::update(float deltaTime)
@@ -19,6 +23,11 @@ void PlayerController::update(float deltaTime)
     handleSteering(deltaTime);
     camera.update(deltaTime);
     player.update(deltaTime);
+}
+
+void PlayerController::render()
+{
+    player.render();
 }
 
 void PlayerController::handleSteering(float deltaTime)

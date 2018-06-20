@@ -4,7 +4,7 @@
 
 Game::Game()
 : map()
-, playerController()
+, playerController(map)
 , AI(map)
 {
     std::srand(static_cast<unsigned int>(time(NULL)));
@@ -38,6 +38,8 @@ void Game::init()
 
     AI.loadBirdMeshFromFile("resources/meshes/unitsphere.x");
     AI.createFlocks(AMOUNT_OF_FLOCKS, AMOUNT_OF_BIRDS_IN_FLOCK);
+
+    playerController.init();
 }
 
 void Game::update(float deltaTime)
@@ -51,4 +53,5 @@ void Game::render()
     map.renderTerrain();
     map.renderCity();
     AI.renderFlocks();
+    playerController.render();
 }

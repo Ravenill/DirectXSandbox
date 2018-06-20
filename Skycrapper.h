@@ -1,7 +1,8 @@
 #pragma once
 #include "CPR_Framework.h"
+#include "Drawable.h"
 
-class Skycrapper
+class Skycrapper : public Drawable
 {
 public:
     Skycrapper();
@@ -19,10 +20,10 @@ public:
     void renderSkycrapper(Mesh* skyscrapperMesh);
 
 private:
-    D3DXVECTOR3 position;
-    D3DXVECTOR3 rotation;
-    D3DXVECTOR3 scale;
-    D3DXVECTOR4 color;
+    //D3DXVECTOR3 position;
+    //D3DXVECTOR3 rotation;
+    //D3DXVECTOR3 scale;
+    //D3DXVECTOR4 color;
 
     const int height;
 };

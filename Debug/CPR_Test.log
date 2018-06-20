@@ -1,3 +1,16 @@
-﻿  Bird.cpp
+﻿  Map.cpp
+  Skycrapper.cpp
+  RedBall.cpp
+  PlayerController.cpp
+  Player.cpp
+  Game.cpp
+  Drawable.cpp
+  Crosshair.cpp
+  CPR_Test.cpp
+  Camera.cpp
+  BirdFlock.cpp
+  Bird.cpp
+  AIController.cpp
+  Generating Code...
   CPR_Test.vcxproj -> C:\Users\Kruczek\Desktop\CPR_Test_VS2015\CPR_Test_VS2015\Debug\CPR_Test.exe
   CPR_Test.vcxproj -> C:\Users\Kruczek\Desktop\CPR_Test_VS2015\CPR_Test_VS2015\Debug\CPR_Test.pdb (Full PDB)

@@ -2,10 +2,10 @@
 #include "Defines.h"
 
 Bird::Bird(Map& map_)
-: position(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
+: Drawable()/*position(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , rotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , scale(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
-, color(D3DXVECTOR4(0.0f, 0.0f, 0.0f, 0.0f))
+, color(D3DXVECTOR4(0.0f, 0.0f, 0.0f, 0.0f))*/
 , velocityForward(0.0f)
 , maxVelocityForward(0.0f)
 , yaw(0.0f)
@@ -19,10 +19,10 @@ Bird::Bird(Map& map_)
 }
 
 Bird::Bird(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_, const float maxVelocityForward_, Map& map_)
-: position(position_)
+: Drawable(position_, rotation_, scale_, color_)/*position(position_)
 , rotation(rotation_)
 , scale(scale_)
-, color(color_)
+, color(color_)*/
 , velocityForward(0.0f)
 , maxVelocityForward(maxVelocityForward_)
 , yaw(0.0f)
@@ -109,7 +109,7 @@ void Bird::updateDesiredDirection()
 void Bird::changeSpeed()
 {
     float changer = static_cast<float>((rand() % 3) - 1);
-    changer = (changer * (MAX_BIRD_SPEED - MIN_BIRD_SPEED)) / AMOUNT_OF_BIRDS_SPEED;
+    changer = (changer * (MAX_BIRD_SPEED - MIN_BIRD_SPEED)) / AMOUNT_OF_SPEEDS;
 
     velocityForward += changer;
 
@@ -145,11 +145,11 @@ void Bird::addAvoidingForce()
         //more push
         D3DXVECTOR3 crossProduct;
         D3DXVec3Cross(&crossProduct, &avoidingForce, &HEAD_VECTOR);
-        const float lengthCrossProduct = D3DXVec3Length(&crossProduct);
-        float angle = asin(lengthCrossProduct);
-        angle = (angle > 1) ? 1 : ((angle < -1) ? -1 : angle); //to be sure - like quickfix in update
-
-        if ((angle > -0.1 && angle < 0.1) || (angle > ((D3DX_PI * 2) - 0.1) && angle < ((D3DX_PI * 2) + 0.1)))
+        float lengthCrossProduct = D3DXVec3Length(&crossProduct);
+        lengthCrossProduct = (lengthCrossProduct > 1) ? 1 : ((lengthCrossProduct < -1) ? -1 : lengthCrossProduct); //to be sure - like quickfix in update
+        const float angle = asin(lengthCrossProduct);
+        
+        if ((angle > -0.01 && angle < 0.01) || (angle > ((D3DX_PI * 2) - 0.01) && angle < ((D3DX_PI * 2) + 0.01)))
         {
             avoidingForce.x += 0.15f;
         }
