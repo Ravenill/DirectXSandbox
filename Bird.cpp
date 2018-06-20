@@ -2,10 +2,7 @@
 #include "Defines.h"
 
 Bird::Bird(Map& map_)
-: Drawable()/*position(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
-, rotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
-, scale(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
-, color(D3DXVECTOR4(0.0f, 0.0f, 0.0f, 0.0f))*/
+: Drawable()
 , velocityForward(0.0f)
 , maxVelocityForward(0.0f)
 , yaw(0.0f)
@@ -19,10 +16,7 @@ Bird::Bird(Map& map_)
 }
 
 Bird::Bird(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_, const float maxVelocityForward_, Map& map_)
-: Drawable(position_, rotation_, scale_, color_)/*position(position_)
-, rotation(rotation_)
-, scale(scale_)
-, color(color_)*/
+: Drawable(position_, rotation_, scale_, color_)
 , velocityForward(0.0f)
 , maxVelocityForward(maxVelocityForward_)
 , yaw(0.0f)

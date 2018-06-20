@@ -30,11 +30,6 @@ private:
     void addNearestBuildingTo(std::vector<Skycrapper>& nearSkycreappers);
 
 private:
-    //D3DXVECTOR3 position;
-    //D3DXVECTOR3 rotation;
-    //D3DXVECTOR3 scale;
-    //D3DXVECTOR4 color;
-
     D3DXVECTOR3 target;
     D3DXVECTOR3 desiredDirection;
 

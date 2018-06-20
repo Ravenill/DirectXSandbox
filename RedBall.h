@@ -18,13 +18,7 @@ private:
     void decreasingVelocity();
 
 private:
-    //D3DXVECTOR3 position;
     D3DXVECTOR3 direction;
-
-    //D3DXVECTOR3 rotation;
-    //D3DXVECTOR3 scale;
-    //D3DXVECTOR4 color;
-
     float velocity;
 
     Map& map;
