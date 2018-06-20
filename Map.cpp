@@ -92,7 +92,7 @@ void Map::initializeCity()
     {
         for (int column = 0; column < columns; column++)
         {
-            const D3DXVECTOR3 position(-50.0f + (SPACES_ROWS / 2) + (row * SPACES_ROWS), 0.0f, -50.0f + (SPACES_COLUMNS / 2) + (column * SPACES_COLUMNS));
+            const D3DXVECTOR3 position(-( SIZE_OF_GROUND_X / 2 ) + (SPACES_ROWS / 2) + (row * SPACES_ROWS), 0.0f, ( SIZE_OF_GROUND_Z / 2) - (SPACES_COLUMNS / 2) - (column * SPACES_COLUMNS));
             mapOfSkyscrappers[row][column].setAttributes(position, BUILDING_ROTATION, BUILDING_SCALE, BUILDING_COLOR);
         }
     }
