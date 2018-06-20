@@ -15,6 +15,7 @@
     <ClCompile Include="Bird.cpp" />
     <ClCompile Include="BirdFlock.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CPR_Test.cpp" />
     <ClCompile Include="Crosshair.cpp" />
     <ClCompile Include="Drawable.cpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Bird.h" />
     <ClInclude Include="BirdFlock.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="CPR_Framework.h" />
     <ClInclude Include="Crosshair.h" />
     <ClInclude Include="Defines.h" />

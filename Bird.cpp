@@ -1,5 +1,6 @@
 #include "Bird.h"
 #include "Defines.h"
+#include "Collision.h"
 
 Bird::Bird(Map& map_)
 : Drawable()
@@ -120,9 +121,10 @@ void Bird::changeSpeed()
 void Bird::addAvoidingForce()
 {
     const float MAX_SEE_AHEAD = 6.0f;
+    const float DETECTING_RANGE = 8.0f;
     std::vector<Skycrapper> nearSkycrappers;
     
-    addNearestBuildingTo(nearSkycrappers);
+    Collision::detectBuildings(map, position, DETECTING_RANGE, nearSkycrappers);
     
     const D3DXVECTOR3 ORIGINAL_POSITION = position;
     const D3DXVECTOR3 HEAD_VECTOR = position + (*(D3DXVec3Normalize(&direction, &direction)) * MAX_SEE_AHEAD);
@@ -150,37 +152,6 @@ void Bird::addAvoidingForce()
 
         avoidingForce = *(D3DXVec3Normalize(&avoidingForce, &avoidingForce)) * force; 
         position += avoidingForce;
-    }
-}
-
-void Bird::addNearestBuildingTo(std::vector<Skycrapper>& nearSkycrappers)
-{
-    const float DETECTING_RANGE = 8.0f;
-
-    const int ROWS = map.getNumberOfRows();
-    const int COLUMNS = map.getNumberOfColumns();
-    
-    for (int row = 0; row < ROWS; row++)
-    {
-        const D3DXVECTOR3& POSITION_OF_BUILDING = map[row][0].getPosition();
-
-        if ((POSITION_OF_BUILDING.x >= (position.x - DETECTING_RANGE)) && (POSITION_OF_BUILDING.x <= (position.x + DETECTING_RANGE)))
-        {
-            for (int column = 0; column < COLUMNS; column++)
-            {
-                const D3DXVECTOR3& POSITION_OF_NEXT_BUILDING = map[row][column].getPosition();
-
-                if ((POSITION_OF_NEXT_BUILDING.z >= (position.z - DETECTING_RANGE)) && (POSITION_OF_NEXT_BUILDING.z <= (position.z + DETECTING_RANGE)))
-                {
-                    const float HEIGHT_OF_BUILDING = BUILDING_SCALE.y * map[row][column].getHeight();
-
-                    if (position.y <= HEIGHT_OF_BUILDING)
-                    {
-                        nearSkycrappers.push_back(map[row][column]);
-                    }
-                }
-            }
-        }
     }
 }
 

@@ -27,7 +27,6 @@ private:
     void changeSpeed();
 
     void addAvoidingForce();
-    void addNearestBuildingTo(std::vector<Skycrapper>& nearSkycreappers);
 
 private:
     D3DXVECTOR3 target;

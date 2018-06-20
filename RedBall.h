@@ -16,6 +16,7 @@ public:
 
 private:
     void decreasingVelocity();
+    bool isColideWithBuilding();
 
 private:
     D3DXVECTOR3 direction;

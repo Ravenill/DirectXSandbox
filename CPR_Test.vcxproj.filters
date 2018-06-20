@@ -38,6 +38,9 @@
     <ClCompile Include="Drawable.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -80,6 +83,9 @@
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="Drawable.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
       <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>

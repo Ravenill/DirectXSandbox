@@ -30,6 +30,11 @@ void RedBall::decreasingVelocity()
         velocity = 0;
 }
 
+bool RedBall::isColideWithBuilding()
+{
+    return false;
+}
+
 void RedBall::render(Mesh* mesh)
 {
     Render(mesh, position, rotation, scale, color);
