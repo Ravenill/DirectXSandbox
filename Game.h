@@ -2,6 +2,7 @@
 #include "AIController.h"
 #include "Map.h"
 #include "PlayerController.h"
+#include "GUI.h"
 
 class Game
 {
@@ -19,8 +20,11 @@ public:
     void render();
 
 private:
+    HWND window;
+
     Map map;
     PlayerController playerController;
     AIController AI;
+    GUI gui;
 };
 

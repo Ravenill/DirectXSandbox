@@ -33,7 +33,7 @@ void PlayerController::render()
 void PlayerController::handleSteering(float deltaTime)
 {
     D3DXVECTOR2 actualMousePos = GetMousePosition();
-    D3DXVECTOR2 diff = actualMousePos - centralMousPos;
+    D3DXVECTOR2 diff = actualMousePos - CENTER_OF_SCREEN;
 
     if (IsKeyPressed(Key::KEY_W) || IsKeyPressed(Key::KEY_UP))
     {
@@ -71,7 +71,7 @@ void PlayerController::handleSteering(float deltaTime)
 
     SetCursorPos(SIZE_SCREEN_X / 2, SIZE_SCREEN_Y / 2);
 
-    if (LeftMouseButton())
+    if (GetAsyncKeyState(VK_LBUTTON) == -32767)
     {
         player.shoot();
     }

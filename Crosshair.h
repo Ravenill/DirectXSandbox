@@ -2,14 +2,21 @@
 #include "CPR_Framework.h"
 #include "Drawable.h"
 
-/* wellp - that's very sad, because i don't see hInstance and cannot use typical WINAPI function for rendering crosshair*/
-
 class Crosshair : public Drawable
 {
 public:
-    Crosshair();
+    Crosshair(HWND& window_);
     ~Crosshair();
 
+public:
+    void init();
+    void render();
+
 private:
+    void Crosshair::drawRectangle(int x, int y, int w, int h);
+
+private:
+    HWND& window;
+    IDirect3DDevice9Ex* device;
 };
 

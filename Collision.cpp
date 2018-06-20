@@ -27,7 +27,7 @@ bool Collision::detectBuildings(Map& map, const D3DXVECTOR3& position, const flo
 
                 if ((POSITION_OF_NEXT_BUILDING.z >= (position.z - detectingRange)) && (POSITION_OF_NEXT_BUILDING.z <= (position.z + detectingRange)))
                 {
-                    const float HEIGHT_OF_BUILDING = BUILDING_SCALE.y * map[row][column].getHeight();
+                    const float HEIGHT_OF_BUILDING = (BUILDING_SCALE.y * map[row][column].getHeight()) + TERRAIN_POSITION.y;
 
                     if (position.y <= HEIGHT_OF_BUILDING)
                     {

@@ -23,9 +23,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>General</Filter>
     </ClCompile>
-    <ClCompile Include="Crosshair.cpp">
-      <Filter>Player\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
@@ -40,6 +37,15 @@
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Player\Camera\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Crosshair.cpp">
+      <Filter>Player\Camera\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CrosshairPrimitive.cpp">
+      <Filter>Player\Camera\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +76,6 @@
     <ClInclude Include="Game.h">
       <Filter>General</Filter>
     </ClInclude>
-    <ClInclude Include="Crosshair.h">
-      <Filter>Player\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Player</Filter>
     </ClInclude>
@@ -87,6 +90,15 @@
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Player\Camera\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Crosshair.h">
+      <Filter>Player\Camera\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CrosshairPrimitive.h">
+      <Filter>Player\Camera\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +128,9 @@
     </Filter>
     <Filter Include="Player\ShootingComponent">
       <UniqueIdentifier>{70089c86-263c-453d-ac69-f7e0d24f479e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Camera\GUI">
+      <UniqueIdentifier>{9029e2c3-7dc8-4e0e-81b3-1eb39cb3e951}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -3,11 +3,14 @@
 #include <ctime>
 
 Game::Game()
-: map()
+: window(GetActiveWindow())
+, map()
 , playerController(map)
 , AI(map)
+, gui(window)
 {
     std::srand(static_cast<unsigned int>(time(NULL)));
+    SetWindowPos(window, HWND_TOP, 0, 0, SIZE_SCREEN_X, SIZE_SCREEN_Y, SWP_NOMOVE | SWP_NOREPOSITION | SWP_NOZORDER | SWP_SHOWWINDOW);
 }
 
 Game::~Game()
@@ -32,6 +35,8 @@ AIController& Game::getAI()
 
 void Game::init()
 {
+    window = GetActiveWindow();
+
     map.loadMapFromFile("resources/city.txt");
     map.loadMapMeshFromFile("resources/meshes/unitbox.x", "resources/meshes/unitbox.x");
     map.initializeCity();
@@ -40,6 +45,7 @@ void Game::init()
     AI.createFlocks(AMOUNT_OF_FLOCKS, AMOUNT_OF_BIRDS_IN_FLOCK);
 
     playerController.init();
+    gui.init();
 }
 
 void Game::update(float deltaTime)
@@ -54,4 +60,5 @@ void Game::render()
     map.renderCity();
     AI.renderFlocks();
     playerController.render();
+    gui.render();
 }
