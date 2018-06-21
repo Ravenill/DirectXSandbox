@@ -81,7 +81,7 @@ void Player::updateRedBalls(float deltaTime)
     const int RED_BALL_LIST_SIZE = redBallList.size();
     for (int i = RED_BALL_LIST_SIZE - 1; i >= 0; i--)
     {
-        if (redBallList[i].getVelocity() < DECREASING_VELOCITY_OF_RED_BALLS)
+        if (redBallList[i].getVelocity() < DECREASING_VELOCITY_OF_RED_BALLS && redBallList[i].getIsBird() == false)
         {
             redBallList.erase(redBallList.begin() + i);
         }

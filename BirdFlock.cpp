@@ -28,8 +28,8 @@ void BirdFlock::initializeFlock(const D3DXVECTOR3 startingPosition)
     for (auto& bird : birds)
     {
         D3DXVECTOR3 position = startingPosition;
-        int numberOfBird = (&bird - &*(birds.begin())) + 1;
-        int diff = numberOfBird / 2;
+        int birdNumber = (&bird - &*(birds.begin())) + 1;
+        int diff = birdNumber / 2;
 
         position.x += (diff * SPACE * modifier);
         position.z += (diff * SPACE);
@@ -55,6 +55,7 @@ void BirdFlock::updateFlock(float deltaTime)
     }
 
     checkCollisionWithRedBalls();
+    addNewBird();
 }
 
 void BirdFlock::changeFlockTarget()
@@ -98,7 +99,7 @@ void BirdFlock::checkCollisionWithRedBalls()
             if (distance <= (BIRD_SCALE.y / 2 + BALL_SCALE.y / 2))
             {
                 birdNumber = (&bird - &*(birds.begin()));
-                ball.increaseVelocity(5.0f);
+                ball.increaseVelocity(1.0f);
                 ball.setIsBird(true);
             }
         }
@@ -112,4 +113,26 @@ void BirdFlock::checkCollisionWithRedBalls()
 
 void BirdFlock::addNewBird()
 {
+    int ballNumber = -1;
+
+    for (auto& ball : redBallList)
+    {
+        if ((ball.getVelocity() <= DECREASING_VELOCITY_OF_RED_BALLS) && ball.getIsBird() == true)
+        {
+            Bird newBird(map);
+            D3DXVECTOR3 position = ball.getPosition();
+
+            position.y = heightOfFlight;
+            newBird.initialize(position, BIRD_ROTATION, BIRD_SCALE, BIRD_COLOR, MAX_BIRD_SPEED, INITIAL_BIRD_SPEED);
+
+            birds.push_back(newBird);
+
+            ballNumber = (&ball - &*(redBallList.begin()));
+        }
+    }
+
+    if (ballNumber != -1)
+    {
+        redBallList.erase(redBallList.begin() + ballNumber);
+    }
 }
