@@ -17,6 +17,12 @@ public:
     void render();
     void shoot();
 
+    D3DXVECTOR3& getPlayerPosition();
+    D3DXVECTOR3& getPlayerLookDir();
+    D3DXMATRIX& getPlayerRotationLookDirectionMatrix();
+
+    std::vector<RedBall>& getRedBallList();
+
 private:
     void updateRedBalls(float deltaTime);
 
@@ -26,6 +32,8 @@ private:
     D3DXVECTOR3& position;
     D3DXVECTOR3& direction;
     D3DXVECTOR3& directionLook;
+
+    D3DXMATRIX& rotationLookMatrix;
 
     Mesh* ballMesh;
     std::vector<RedBall> redBallList;

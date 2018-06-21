@@ -1,9 +1,10 @@
 #include "AIController.h"
 #include "Defines.h"
 
-AIController::AIController(Map& map_)
+AIController::AIController(Map& map_, std::vector<RedBall>& redBallList_)
 : birdMesh(0)
 , map(map_)
+, redBallList(redBallList_)
 {
     
 }
@@ -31,7 +32,7 @@ void AIController::createFlocks(const int amountOfFlocks, const int amoutOfBirds
         pos.x *= modifier;
         pos.y = static_cast<float>((rand() % 4) + 13.0f);
         pos.z *= modifier;
-        BirdFlock birdFlock(amoutOfBirdsInFlock, pos.y, map);
+        BirdFlock birdFlock(amoutOfBirdsInFlock, pos.y, map, redBallList);
         birdFlock.initializeFlock(pos);
         birdFlocks.push_back(birdFlock);
     }
@@ -52,4 +53,9 @@ void AIController::renderFlocks()
     {
         flock.renderFlock(birdMesh);
     }
+}
+
+std::vector<BirdFlock>& AIController::getBirdFlocks()
+{
+    return birdFlocks;
 }

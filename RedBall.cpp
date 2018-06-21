@@ -6,9 +6,26 @@ RedBall::RedBall(Map& map_, D3DXVECTOR3 position_, D3DXVECTOR3 direction_, D3DXV
 : Drawable(position_, rotation_, scale_, color_)
 , direction(direction_)
 , velocity(BALL_INIT_VELOCITY)
+, isBird(false)
 , map(map_)
 {
 
+}
+
+RedBall& RedBall::operator=(const RedBall& a)
+{
+    position = a.position;
+    rotation = a.rotation;
+    scale = a.scale;
+    color = a.color;
+    
+    direction = a.direction;
+    velocity = a.velocity;
+    isBird = a.isBird;
+
+    map = a.map;;
+
+    return *this;
 }
 
 RedBall::~RedBall()
@@ -20,19 +37,19 @@ void RedBall::update(float deltaTime)
 {
     position += *(D3DXVec3Normalize(&direction, &direction)) * velocity * deltaTime;
     
-    detectCollision();
+    detectWallCollision();
     decreasingVelocity();
 }
 
 void RedBall::decreasingVelocity()
 {
-    if (velocity >= 0.0005f)
-        velocity -= 0.0005f;
-    else if (velocity < 0.0005f)
+    if (velocity >= DECREASING_VELOCITY_OF_RED_BALLS)
+        velocity -= DECREASING_VELOCITY_OF_RED_BALLS;
+    else if (velocity < DECREASING_VELOCITY_OF_RED_BALLS)
         velocity = 0;
 }
 
-void RedBall::detectCollision()
+void RedBall::detectWallCollision()
 {
     std::vector<Skycrapper> skycrapperWithColision;
     if (!Collision::detectBuildings(map, position, BUILDING_SCALE.x + BALL_SCALE.x, skycrapperWithColision))
@@ -82,4 +99,29 @@ void RedBall::detectCollision()
 void RedBall::render(Mesh* mesh)
 {
     Render(mesh, position, rotation, scale, color);
+}
+
+void RedBall::increaseVelocity(const float unit)
+{
+    velocity += unit;
+}
+
+D3DXVECTOR3 & RedBall::getPosition()
+{
+    return position;
+}
+
+bool RedBall::getIsBird() const
+{
+    return isBird;
+}
+
+void RedBall::setIsBird(bool value)
+{
+    isBird = value;
+}
+
+float RedBall::getVelocity() const
+{
+    return velocity;
 }

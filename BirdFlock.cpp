@@ -1,9 +1,10 @@
 #include "BirdFlock.h"
 #include "Defines.h"
 
-BirdFlock::BirdFlock(const int amountOfBirds, const float height, Map& map_)
+BirdFlock::BirdFlock(const int amountOfBirds, const float height, Map& map_, std::vector<RedBall>& redBallList_)
 : map(map_)
 , heightOfFlight(height)
+, redBallList(redBallList_)
 {
     birds.reserve(amountOfBirds);
     
@@ -52,6 +53,8 @@ void BirdFlock::updateFlock(float deltaTime)
             changeFlockTarget();
         }
     }
+
+    checkCollisionWithRedBalls();
 }
 
 void BirdFlock::changeFlockTarget()
@@ -74,4 +77,39 @@ void BirdFlock::renderFlock(Mesh* mesh)
     {
         bird.render(mesh);
     }
+}
+
+void BirdFlock::checkCollisionWithRedBalls()
+{
+    if (redBallList.empty())
+    {
+        return;
+    }
+
+    int birdNumber = -1;
+
+    for (auto& bird : birds)
+    {
+        for (auto& ball : redBallList)
+        {
+            const D3DXVECTOR3 distanceVec = ball.getPosition() - bird.getPosition();
+            const float distance = D3DXVec3Length(&distanceVec);
+
+            if (distance <= (BIRD_SCALE.y / 2 + BALL_SCALE.y / 2))
+            {
+                birdNumber = (&bird - &*(birds.begin()));
+                ball.increaseVelocity(5.0f);
+                ball.setIsBird(true);
+            }
+        }
+    }
+
+    if (birdNumber != -1)
+    {
+        birds.erase(birds.begin() + birdNumber);
+    }
+}
+
+void BirdFlock::addNewBird()
+{
 }

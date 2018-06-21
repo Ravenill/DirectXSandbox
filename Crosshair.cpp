@@ -47,5 +47,5 @@ void Crosshair::render()
 void Crosshair::drawRectangle(int x, int y, int w, int h)
 {
     D3DRECT rectangle = { x, y, x + w, y + h };
-    HRESULT result = device->Clear(1, &rectangle, D3DCLEAR_TARGET, CROSSHAIR_COLOR, 0, 0);
+    HRESULT result = device->Clear(1, &rectangle, D3DCLEAR_TARGET, CROSSHAIR_COLOR_WINAPI, 0, 0);
 }

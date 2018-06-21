@@ -13,6 +13,8 @@ public:
     void update(float deltaTick);
     void render();
 
+    Player& getPlayer();
+
 private:
     void handleSteering(float deltaTick);
 

@@ -1,3 +1,13 @@
-﻿  Crosshair.cpp
+﻿  BirdFlock.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  RedBall.cpp
+  PlayerController.cpp
+  Player.cpp
+  GUI.cpp
+  CrosshairPrimitive.cpp
+  Game.cpp
+  CPR_Test.cpp
+  AIController.cpp
   CPR_Test.vcxproj -> C:\Users\Kruczek\Desktop\CPR_Test_VS2015\CPR_Test_VS2015\Debug\CPR_Test.exe
   CPR_Test.vcxproj -> C:\Users\Kruczek\Desktop\CPR_Test_VS2015\CPR_Test_VS2015\Debug\CPR_Test.pdb (Full PDB)

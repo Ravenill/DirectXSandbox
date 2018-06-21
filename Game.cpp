@@ -6,8 +6,8 @@ Game::Game()
 : window(GetActiveWindow())
 , map()
 , playerController(map)
-, AI(map)
-, gui(window)
+, AI(map, playerController.getPlayer().getRedBallList())
+, gui(window, playerController.getPlayer())
 {
     std::srand(static_cast<unsigned int>(time(NULL)));
     SetWindowPos(window, HWND_TOP, 0, 0, SIZE_SCREEN_X, SIZE_SCREEN_Y, SWP_NOMOVE | SWP_NOREPOSITION | SWP_NOZORDER | SWP_SHOWWINDOW);
@@ -52,6 +52,7 @@ void Game::update(float deltaTime)
 {
     playerController.update(deltaTime);
     AI.update(deltaTime);
+    gui.update();
 }
 
 void Game::render()

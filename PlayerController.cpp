@@ -30,6 +30,11 @@ void PlayerController::render()
     player.render();
 }
 
+Player & PlayerController::getPlayer()
+{
+    return player;
+}
+
 void PlayerController::handleSteering(float deltaTime)
 {
     D3DXVECTOR2 actualMousePos = GetMousePosition();

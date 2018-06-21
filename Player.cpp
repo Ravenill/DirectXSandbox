@@ -7,6 +7,7 @@ Player::Player(Camera & camera_, Map& map_)
 , position(camera_.getPosition())
 , direction(camera_.getDirection())
 , directionLook(camera_.getLookDirection())
+, rotationLookMatrix(camera_.getRotationMatrix())
 , ballMesh(0)
 , map(map_)
 {
@@ -38,7 +39,7 @@ void Player::render()
 
 void Player::shoot()
 {
-    if (redBallList.size() >= 5)
+    if (redBallList.size() >= MAX_AMOUNT_OF_RED_BALLS)
     {
         return;
     }
@@ -50,10 +51,39 @@ void Player::shoot()
     redBallList.push_back(bullet);
 }
 
+D3DXVECTOR3 & Player::getPlayerPosition()
+{
+    return position;
+}
+
+D3DXVECTOR3 & Player::getPlayerLookDir()
+{
+    return directionLook;
+}
+
+D3DXMATRIX & Player::getPlayerRotationLookDirectionMatrix()
+{
+    return rotationLookMatrix;
+}
+
+std::vector<RedBall>& Player::getRedBallList()
+{
+    return redBallList;
+}
+
 void Player::updateRedBalls(float deltaTime)
 {
     for (auto& ball : redBallList)
     {
         ball.update(deltaTime);
+    }
+
+    const int RED_BALL_LIST_SIZE = redBallList.size();
+    for (int i = RED_BALL_LIST_SIZE - 1; i >= 0; i--)
+    {
+        if (redBallList[i].getVelocity() < DECREASING_VELOCITY_OF_RED_BALLS)
+        {
+            redBallList.erase(redBallList.begin() + i);
+        }
     }
 }

@@ -30,6 +30,29 @@ Bird::Bird(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, const D3DXV
     D3DXVec3Normalize(&direction, &(target - position));
 }
 
+Bird& Bird::operator=(const Bird & a)
+{
+    position = a.position;
+    rotation = a.rotation;
+    scale = a.scale;
+    color = a.color;
+    
+    target = a.target;
+    desiredDirection = a.desiredDirection;
+
+    direction = a.direction;
+    rotationMatrix = a.rotationMatrix;
+
+    velocityForward = a.velocityForward;
+    maxVelocityForward = a.maxVelocityForward;
+
+    yaw = a.yaw;
+
+    map = a.map;
+
+    return *this;
+}
+
 Bird::~Bird()
 {
 
@@ -181,4 +204,9 @@ bool Bird::isReachedTarget()
     }
 
     return false;
+}
+
+D3DXVECTOR3 & Bird::getPosition()
+{
+    return position;
 }

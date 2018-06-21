@@ -1,11 +1,12 @@
 #pragma once
 #include "BirdFlock.h"
 #include "Map.h"
+#include "RedBall.h"
 
 class AIController
 {
 public:
-    AIController(Map& map_);
+    AIController(Map& map_, std::vector<RedBall>& redBallList_);
     ~AIController();
 
 public:
@@ -15,9 +16,12 @@ public:
     void update(float deltaTime);
     void renderFlocks();
 
+    std::vector<BirdFlock>& getBirdFlocks();
+
 private:
     std::vector<BirdFlock> birdFlocks;
     Mesh* birdMesh;
     Map& map;
+    std::vector<RedBall>& redBallList;
 };
 

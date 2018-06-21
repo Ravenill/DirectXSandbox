@@ -18,6 +18,7 @@ public:
     D3DXVECTOR3& getPosition();
     D3DXVECTOR3& getLookDirection();
     D3DXVECTOR3& getDirection();
+    D3DXMATRIX& getRotationMatrix();
 
 private:
     void setProjectionMatrix();

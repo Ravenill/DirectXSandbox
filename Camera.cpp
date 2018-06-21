@@ -109,6 +109,11 @@ D3DXVECTOR3 & Camera::getDirection()
     return direction;
 }
 
+D3DXMATRIX& Camera::getRotationMatrix()
+{
+    return rotationMatrix;
+}
+
 void Camera::updateView()
 {
     D3DXMatrixRotationYawPitchRoll(&rotationMatrix, yaw, pitch, 0);

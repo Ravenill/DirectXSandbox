@@ -14,6 +14,18 @@ Skycrapper::Skycrapper(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_,
 
 }
 
+Skycrapper & Skycrapper::operator=(const Skycrapper & a)
+{
+    position = a.position;
+    rotation = a.rotation;
+    scale = a.scale;
+    color = a.color;
+
+    height = a.height;
+
+    return *this;
+}
+
 Skycrapper::Skycrapper(const int height_)
 : Drawable()
 , height(height_)
