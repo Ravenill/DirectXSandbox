@@ -9,10 +9,11 @@ Camera::Camera()
 , yaw(0)
 , pitch(0)
 , maxPitch(D3DXToRadian(80.0f))
-, maxVelocityForward(0.5f)
-, maxVelocityHorizontal(0.25f)
+, maxVelocityForward(MAX_CAMERA_SPEED_FORWARD_NORMAL)
+, maxVelocityHorizontal(MAX_CAMERA_SPEED_HORIZONTAL)
 , velocityForward(0)
 , velocityHorizontal(0)
+, sprintMultiplier(1.0f)
 , position(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , target(D3DXVECTOR3(0.0f, 0.0f, 1.0f))
 , defaultTarget(D3DXVECTOR3(0.0f, 0.0f, 1.0f))
@@ -67,7 +68,7 @@ void Camera::pitchOperation(float radians)
 
 void Camera::moveForward(float units)
 {
-    velocityForward += units;
+    velocityForward += (units * sprintMultiplier);
 
     if (velocityForward > maxVelocityForward)
     {
@@ -81,7 +82,7 @@ void Camera::moveForward(float units)
 
 void Camera::moveHorizontal(float units)
 {
-    velocityHorizontal += units;
+    velocityHorizontal += (units * sprintMultiplier);
 
     if (velocityHorizontal > maxVelocityHorizontal)
     {
@@ -114,6 +115,12 @@ D3DXMATRIX& Camera::getRotationMatrix()
     return rotationMatrix;
 }
 
+void Camera::setSpeedForward(bool sprint)
+{
+    maxVelocityForward = sprint ? MAX_CAMERA_SPEED_FORWARD_SPRINT : MAX_CAMERA_SPEED_FORWARD_NORMAL;
+    sprintMultiplier = sprint ? SPRINT_MULTIPLIER : 1.0f;
+}
+
 void Camera::updateView()
 {
     D3DXMatrixRotationYawPitchRoll(&rotationMatrix, yaw, pitch, 0);
@@ -130,6 +137,10 @@ void Camera::updateView()
 
     position += forward;
     position += horizontal;
+
+#ifndef __DEBUG
+    mapGuard();
+#endif // __DEBUG
 
     D3DXVec3Normalize(&direction, &forward);
 
@@ -161,4 +172,17 @@ void Camera::decreaseVelocity()
 
     if (velocityHorizontal < DECREASING_VALUE && velocityHorizontal > -DECREASING_VALUE)
         velocityHorizontal = 0;
+}
+
+void Camera::mapGuard()
+{
+    if (position.x < -SIZE_OF_GROUND_X/2)
+        position.x = -SIZE_OF_GROUND_X/2;
+    else if (position.x > SIZE_OF_GROUND_X/2)
+        position.x = SIZE_OF_GROUND_X / 2;
+
+    if (position.z < -SIZE_OF_GROUND_Z / 2)
+        position.z = -SIZE_OF_GROUND_Z / 2;
+    else if (position.z > SIZE_OF_GROUND_Z / 2)
+        position.z = SIZE_OF_GROUND_Z / 2;
 }

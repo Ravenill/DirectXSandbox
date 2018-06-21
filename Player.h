@@ -22,9 +22,11 @@ public:
     D3DXMATRIX& getPlayerRotationLookDirectionMatrix();
 
     std::vector<RedBall>& getRedBallList();
+    int getScore() const;
 
 private:
     void updateRedBalls(float deltaTime);
+    void playerGuard();
 
 private:
     Camera& camera;
@@ -38,5 +40,7 @@ private:
     Mesh* ballMesh;
     std::vector<RedBall> redBallList;
     Map& map;
+
+    int score;
 };
 

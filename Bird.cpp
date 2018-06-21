@@ -53,6 +53,14 @@ Bird& Bird::operator=(const Bird & a)
     return *this;
 }
 
+bool Bird::operator==(const Bird& a)
+{
+    if (position == a.position)
+        return true;
+    else
+        return false;
+}
+
 Bird::~Bird()
 {
 
@@ -159,23 +167,25 @@ void Bird::addAvoidingForce()
         D3DXVECTOR3 avoidingForce = HEAD_VECTOR - buildingPosition;
         D3DXVec3Normalize(&avoidingForce, &avoidingForce);
 
-        const float force = 1 / (D3DXVec3Length(&(buildingPosition - position)) * 75);
+        const float FORCE = 1 / (D3DXVec3Length(&(buildingPosition - position)) * 75);
 
         //more push
         D3DXVECTOR3 crossProduct;
         D3DXVec3Cross(&crossProduct, &avoidingForce, &HEAD_VECTOR);
         float lengthCrossProduct = D3DXVec3Length(&crossProduct);
         lengthCrossProduct = (lengthCrossProduct > 1) ? 1 : ((lengthCrossProduct < -1) ? -1 : lengthCrossProduct); //to be sure - like quickfix in update
-        const float angle = asin(lengthCrossProduct);
+        const float ANGLE = asin(lengthCrossProduct);
         
-        if ((angle > -0.01 && angle < 0.01) || (angle > ((D3DX_PI * 2) - 0.01) && angle < ((D3DX_PI * 2) + 0.01)))
+        if ((ANGLE > -0.01 && ANGLE < 0.01) || (ANGLE > ((D3DX_PI * 2) - 0.01) && ANGLE < ((D3DX_PI * 2) + 0.01)))
         {
             avoidingForce.x += 0.15f;
         }
 
-        avoidingForce = *(D3DXVec3Normalize(&avoidingForce, &avoidingForce)) * force; 
+        avoidingForce = *(D3DXVec3Normalize(&avoidingForce, &avoidingForce)) * FORCE; 
         position += avoidingForce;
     }
+
+
 }
 
 void Bird::changeColor(const D3DXVECTOR4 color_)

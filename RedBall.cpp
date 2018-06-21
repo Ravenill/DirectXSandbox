@@ -2,7 +2,7 @@
 #include "Defines.h"
 #include "Collision.h"
 
-RedBall::RedBall(Map& map_, D3DXVECTOR3 position_, D3DXVECTOR3 direction_, D3DXVECTOR3 rotation_, D3DXVECTOR3 scale_, D3DXVECTOR4 color_)
+RedBall::RedBall(Map& map_, const D3DXVECTOR3 position_, const D3DXVECTOR3 direction_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_)
 : Drawable(position_, rotation_, scale_, color_)
 , direction(direction_)
 , velocity(BALL_INIT_VELOCITY)
@@ -52,7 +52,7 @@ void RedBall::decreasingVelocity()
 void RedBall::detectWallCollision()
 {
     std::vector<Skycrapper> skycrapperWithColision;
-    if (!Collision::detectBuildings(map, position, BUILDING_SCALE.x + BALL_SCALE.x, skycrapperWithColision))
+    if (!Collision::detectBuildings(map, position, (BUILDING_SCALE.x * DIMENSION_OF_UNITBOX) + (BALL_SCALE.x * RADIUS_OF_UNITSPHERE), skycrapperWithColision))
     {
         return;
     }

@@ -8,6 +8,7 @@ class BirdFlock
 {
 public:
     BirdFlock(const int amountOfBirds, const float heightOfFlight, Map& map_, std::vector<RedBall>& redBallList_);
+    Bird& operator[] (size_t i) { return birds[i]; }
     ~BirdFlock();
 
 public:
@@ -19,6 +20,7 @@ public:
 
 private:
     void checkCollisionWithRedBalls();
+    void avoidOtherBirds();
     void addNewBird();
 
 private:

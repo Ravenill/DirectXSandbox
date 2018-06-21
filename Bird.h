@@ -8,7 +8,8 @@ class Bird : public Drawable
 public:
     Bird(Map& map_);
     Bird(const D3DXVECTOR3 position_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_, const float maxVelocityForward, Map& map_);
-    Bird &Bird::operator =(const Bird &);
+    Bird &Bird::operator =(const Bird& a);
+    bool Bird::operator ==(const Bird& a);
     ~Bird();
 
 public:

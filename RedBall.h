@@ -6,7 +6,7 @@
 class RedBall : public Drawable
 {
 public:
-    RedBall(Map& map_, D3DXVECTOR3 position_, D3DXVECTOR3 direction_, D3DXVECTOR3 rotation_, D3DXVECTOR3 scale_, D3DXVECTOR4 color_);
+    RedBall(Map& map_, const D3DXVECTOR3 position_, const D3DXVECTOR3 direction_, const D3DXVECTOR3 rotation_, const D3DXVECTOR3 scale_, const D3DXVECTOR4 color_);
     RedBall &RedBall::operator =(const RedBall &);
     ~RedBall();
 

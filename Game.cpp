@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Defines.h"
 #include <ctime>
+#include <string>
 
 Game::Game()
 : window(GetActiveWindow())
@@ -15,7 +16,12 @@ Game::Game()
 
 Game::~Game()
 {
+    std::string text = "You forced: ";
+    text += std::to_string(playerController.getPlayer().getScore());
+    text += " birds to respawn, you bastard. CONGRATS :)";
 
+    ShowCursor(true);
+    MessageBox(NULL, text.c_str(), "RESULT", MB_ICONINFORMATION | MB_OK);
 }
 
 Map& Game::getMap()

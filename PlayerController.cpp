@@ -42,36 +42,36 @@ void PlayerController::handleSteering(float deltaTime)
 
     if (IsKeyPressed(Key::KEY_W) || IsKeyPressed(Key::KEY_UP))
     {
-        camera.moveForward(CAMERA_SPEED_FORWARD * deltaTime);
+        camera.moveForward(CAMERA_ACCELERATION_FORWARD * deltaTime);
     }
     if (IsKeyPressed(Key::KEY_A) || IsKeyPressed(Key::KEY_LEFT))
     {
-        camera.moveHorizontal(-CAMERA_SPEED_HORIZONTAL * deltaTime);
+        camera.moveHorizontal(-CAMERA_ACCELERATION_HORIZONTAL * deltaTime);
     }
     if (IsKeyPressed(Key::KEY_D) || IsKeyPressed(Key::KEY_RIGHT))
     {
-        camera.moveHorizontal(CAMERA_SPEED_HORIZONTAL * deltaTime);
+        camera.moveHorizontal(CAMERA_ACCELERATION_HORIZONTAL * deltaTime);
     }
     if (IsKeyPressed(Key::KEY_S) || IsKeyPressed(Key::KEY_DOWN))
     {
-        camera.moveForward(-CAMERA_SPEED_FORWARD * deltaTime);
+        camera.moveForward(-CAMERA_ACCELERATION_FORWARD * deltaTime);
     }
 
     if (diff.x > 0)
     {
-        camera.yawOperation(D3DXToRadian(CAMERA_SPEED_ROTATION * diff.x));
+        camera.yawOperation(D3DXToRadian(CAMERA_ACCELERATION_ROTATION * diff.x));
     }
     if (diff.x < 0)
     {
-        camera.yawOperation(D3DXToRadian(-CAMERA_SPEED_ROTATION * -diff.x));
+        camera.yawOperation(D3DXToRadian(-CAMERA_ACCELERATION_ROTATION * -diff.x));
     }
     if (diff.y > 0)
     {
-        camera.pitchOperation(D3DXToRadian(CAMERA_SPEED_ROTATION * diff.y));
+        camera.pitchOperation(D3DXToRadian(CAMERA_ACCELERATION_ROTATION * diff.y));
     }
     if (diff.y < 0)
     {
-        camera.pitchOperation(D3DXToRadian(-CAMERA_SPEED_ROTATION * -diff.y));
+        camera.pitchOperation(D3DXToRadian(-CAMERA_ACCELERATION_ROTATION * -diff.y));
     }
 
     SetCursorPos(SIZE_SCREEN_X / 2, SIZE_SCREEN_Y / 2);
@@ -79,5 +79,14 @@ void PlayerController::handleSteering(float deltaTime)
     if (GetAsyncKeyState(VK_LBUTTON) == -32767)
     {
         player.shoot();
+    }
+
+    if (IsKeyPressed(Key::KEY_SPACE))
+    {
+        camera.setSpeedForward(true);
+    }
+    else
+    {
+        camera.setSpeedForward(false);
     }
 }

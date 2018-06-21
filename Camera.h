@@ -20,10 +20,13 @@ public:
     D3DXVECTOR3& getDirection();
     D3DXMATRIX& getRotationMatrix();
 
+    void setSpeedForward(bool sprint);
+
 private:
     void setProjectionMatrix();
     void updateView();
     void decreaseVelocity();
+    void mapGuard();
 
 private:
     float fov;
@@ -39,6 +42,7 @@ private:
 
     float velocityForward;
     float velocityHorizontal;
+    float sprintMultiplier;
 
     D3DXVECTOR3 position;
     D3DXVECTOR3 target;

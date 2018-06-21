@@ -2,7 +2,7 @@
 #include "Defines.h"
 
 CrosshairPrimitive::CrosshairPrimitive(Player& player_)
-: mesh(0)
+: mesh(nullptr)
 , position(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , rotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 , playerPosition(player_.getPlayerPosition())
@@ -14,10 +14,8 @@ CrosshairPrimitive::CrosshairPrimitive(Player& player_)
 
 CrosshairPrimitive::~CrosshairPrimitive()
 {
-
+    Release(mesh);
 }
-
-
 
 void CrosshairPrimitive::init()
 {
@@ -30,8 +28,6 @@ void CrosshairPrimitive::update()
     const D3DXVECTOR3 forward(0.0f, 0.0f, 1.0f);
 
     position = playerPosition;
-    //D3DXVec3TransformCoord(&rotation, &playerLookDirection, &rotationLookDirMatrix);
-    //D3DXVec3TransformCoord(&position, &forward, &rotationLookDirMatrix);
     position += (playerLookDirection * HOW_FAR);
 }
 

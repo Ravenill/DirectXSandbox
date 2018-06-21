@@ -1,4 +1,5 @@
 #include "Skycrapper.h"
+#include "Defines.h"
 
 Skycrapper::Skycrapper()
 : Drawable()
